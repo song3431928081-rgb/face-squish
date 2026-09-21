@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e27">
+  <title>Face Squish - Pixar Character Deformation Game</title>
+  <link rel="stylesheet" href="css/style.css?v=6">
+</head>
+<body>
+
+  <!-- ========== Main Menu Screen ========== -->
+  <div id="screenMenu" class="screen active">
+    <div class="menu-bg" id="menuBg"></div>
+    <div class="menu-content">
+      <h1 class="game-title">FACE SQUISH</h1>
+      <p class="game-subtitle">Squish, Stretch &amp; Twist Pixar Faces!</p>
+      <div class="mode-cards">
+        <div class="mode-card mode-free" data-mode="free">
+          <div class="mode-icon">🤏</div>
+          <h2>Free Style</h2>
+          <p>Unlimited squishing &amp; stretching</p>
+          <span class="mode-badge">UNLOCKED</span>
+        </div>
+        <div class="mode-card mode-challenge" data-mode="challenge">
+          <div class="mode-icon">🎯</div>
+          <h2>Challenge</h2>
+          <p>Complete fun deformation tasks</p>
+          <span class="mode-badge" id="badgeChallenge">UNLOCKED</span>
+        </div>
+        <div class="mode-card mode-remix" data-mode="remix">
+          <div class="mode-icon">🎭</div>
+          <h2>Character Remix</h2>
+          <p>Mix body parts into new mutants</p>
+          <span class="mode-badge locked" id="badgeRemix">LOCKED</span>
+        </div>
+      </div>
+      <div class="total-score">
+        <span class="star">⭐</span>
+        <span id="totalScoreDisplay">0</span>
+        <span class="total-label">Total Deform Points</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Game Screen ========== -->
+  <div id="screenGame" class="screen">
+    <!-- Top HUD -->
+    <div class="hud-top">
+      <button class="hud-btn back-btn" id="btnBack">◀ Menu</button>
+      <div class="hud-center" id="hudCenter">
+        <span class="mode-label" id="modeLabel">Free Style</span>
+        <span class="char-name" id="charNameDisplay">Anton Ego</span>
+      </div>
+      <div class="hud-right">
+        <div class="score-box">
+          <span class="score-label">Score</span>
+          <span class="score-value" id="scoreValue">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Challenge Task Banner (hidden in free mode) -->
+    <div class="task-banner hidden" id="taskBanner">
+      <div class="task-text" id="taskText">Task text here</div>
+      <div class="task-timer">
+        <div class="timer-bar" id="timerBar"></div>
+        <span class="timer-text" id="timerText">30s</span>
+      </div>
+    </div>
+
+    <!-- Canvas Area -->
+    <div class="canvas-wrap" id="canvasWrap">
+      <canvas id="gameCanvas"></canvas>
+      <div class="loading hidden" id="loading">Loading...</div>
+      <div class="ripple-layer" id="rippleLayer"></div>
+    </div>
+
+    <!-- Character Selector (horizontal scroll) -->
+    <div class="char-select" id="charSelect"></div>
+
+    <!-- Remix Selector (hidden unless remix mode) -->
+    <div class="remix-select hidden" id="remixSelect">
+      <div class="remix-half">
+        <span class="remix-label">Top Half</span>
+        <div class="remix-thumbs" id="remixTopThumbs"></div>
+      </div>
+      <div class="remix-divider">⇄</div>
+      <div class="remix-half">
+        <span class="remix-label">Bottom Half</span>
+        <div class="remix-thumbs" id="remixBottomThumbs"></div>
+      </div>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="controls">
+      <button class="btn btn-random" id="btnRandom">🎲 Random</button>
+      <button class="btn btn-squash" id="btnSquash">🤏 Squish</button>
+      <button class="btn btn-stretch" id="btnStretch">📏 Stretch</button>
+      <button class="btn btn-reset" id="btnReset">🔄 Reset</button>
+    </div>
+
+    <!-- Result Modal (for challenge mode) -->
+    <div class="modal-overlay hidden" id="resultModal">
+      <div class="modal-card">
+        <h2 class="modal-title" id="resultTitle">Complete!</h2>
+        <div class="modal-score" id="resultScore">0</div>
+        <div class="modal-stars" id="resultStars">⭐⭐⭐</div>
+        <div class="modal-detail" id="resultDetail">Great deformation!</div>
+        <div class="modal-buttons">
+          <button class="btn btn-reset" id="btnRetry">🔄 Retry</button>
+          <button class="btn btn-random" id="btnNext">▶ Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/game.js?v=6"></script>
+</body>
+</html>
